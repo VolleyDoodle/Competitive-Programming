@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{b3b24e80-99bf-49f8-8f6c-a2fd0ba560f1}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile />
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="cownditioning\cownditioning\data.txt" />
+    <Content Include="cownditioning\cownditioning\Text.txt" />
+    <Content Include="gridpaths\gridpaths\Text.txt" />
+    <Content Include="guess_the_animal\guess_the_animal\ofsolution.txt" />
+    <Content Include="measurement.in.txt" />
+    <Content Include="measuring_traffic\measuring_traffic\sampletestcases.txt" />
+    <Content Include="milkmeasurement\Debug\apple.txt" />
+    <Content Include="milkmeasurement\Debug\measurement.in.txt" />
+    <Content Include="photoshoot_2\photoshoot_2\in.txt" />
+    <Content Include="photoshoot_2\photoshoot_2\out.txt" />
+    <Content Include="pointer.c\pointer.c\pointer.c.ico" />
+    <Content Include="pointer.c\pointer.c\small.ico" />
+    <Content Include="ps2new\ps2new\in.txt" />
+    <Content Include="ps2new\ps2new\out.txt" />
+    <Content Include="ps2new\ps2new\outt.txt" />
+    <Content Include="sleeping_in_class\sleeping_in_class\in.txt" />
+    <Content Include="sleeping_in_class\sleeping_in_class\out.txt" />
+    <Content Include="test\test\Text.txt" />
+    <Content Include="trans_dice\trans_dice\input.txt" />
+    <Content Include="trans_dice\trans_dice\output.txt" />
+    <Content Include="trans_dice\trans_dice\Text.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PythonApplication1\PythonApplication1\PythonApplication1.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="cownditioning\cownditioning" />
+    <Folder Include="gridpaths\gridpaths" />
+    <Folder Include="guess_the_animal\guess_the_animal" />
+    <Folder Include="measuring_traffic\measuring_traffic" />
+    <Folder Include="milkmeasurement\Debug" />
+    <Folder Include="photoshoot_2\photoshoot_2" />
+    <Folder Include="pointer.c\pointer.c" />
+    <Folder Include="ps2new\ps2new" />
+    <Folder Include="PythonApplication1\PythonApplication1" />
+    <Folder Include="sleeping_in_class\sleeping_in_class" />
+    <Folder Include="test\test" />
+    <Folder Include="trans_dice\trans_dice" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
