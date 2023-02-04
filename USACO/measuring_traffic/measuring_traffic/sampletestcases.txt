@@ -1,0 +1,7 @@
+6
+on 1
+none 10
+on 3
+none 12
+off 2
+on 1
