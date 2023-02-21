@@ -1,7 +1,6 @@
 
-#include <iostream>
-#include <fstream>
-#include <cstring>
+#include <bits/stdc++.h>
+
 using namespace std;
 
 int check[1501][1501];
@@ -10,6 +9,8 @@ int main()
 {
     //ifstream cin("input.in");
     //ofstream fout("output.out");
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
     int n;
     int tempp;
     cin >> n;
