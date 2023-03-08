@@ -1,38 +1,38 @@
 #include <bits/stdc++.h>
+//correct ans = 4541
+//first is 2342
+//second is 1740
 using namespace std;
+vector <int> diamonds;
+int n, k,  finalAns = 0;
+void solve(){
+    int startIndex = -1, endIndex = -1, curCase = -1;
+    for (int i = 0; i < n; i++){
+        auto lastElement = upper_bound(diamonds.begin(), diamonds.end(), diamonds[i] + k );
+        if ((lastElement - diamonds.begin()) - i > curCase){
+            startIndex = i;
+            endIndex = lastElement - diamonds.begin();
+            curCase = (lastElement - diamonds.begin()) - i;
+        }
+    }
+    
+    diamonds.erase(diamonds.begin() + startIndex, diamonds.begin() + endIndex);
+    finalAns+=curCase;
+}
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     freopen("diamond.in", "r", stdin);
     freopen("diamond.out", "w", stdout);
-    int n, k;
+    
     cin >> n >> k;
-    vector <int> nums(n), poss;
-    for (int i = 0; i < n; i++){ cin >> nums[i];}
-
-    sort(nums.begin(), nums.end());
-    int right = 0, left = 0, pAns = 0;
-    while (n > right){
-        //cout << "ran" << endl;
-        if (nums[right] <= nums[left] +k){
-            right++; pAns++;
-            if (right == n){
-                poss.push_back(right - left);
-            }
-        } else{
-            left = right;
-            poss.push_back(pAns);
-            pAns = 0;
-        }
-    }
-    sort(poss.begin(), poss.end());
-    /*for (int i = 0; i < poss.size(); i++){
-        cout << poss[i] << " ";
-    }*/
-    if (n == 1){cout << 1; }
-    else{
-        cout <<( poss[poss.size() - 1] + poss[poss.size() - 2]);
-    }
+    diamonds.resize(n); 
+    for (int i = 0; i < n; i++){ cin >> diamonds[i];}
+    sort(diamonds.begin(), diamonds.end());
+    solve();
+    solve();
+    cout << finalAns;
+    
 
     
 

@@ -1,40 +1,57 @@
+#include <bits/stdc++.h>
 using namespace std;
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <map>
-int ans = 0;
-int grid[101][101]; 
-map <pair <int, int >, vector <pair <int, int>>> mGrid;
-void recurse(pair <int, int> bLoc) {
-	int bY = bLoc.first, bX = bLoc.second;
+int n, m;
+bool bGrid[102][102], curVisited[102][102];
+vector <vector <vector <pair <int, int>>>> graph;
+//unordered_map <pair <int, int>, graphtor <pair <int, int>>> graph;
+int ans = 1;
+void dfs(int xNode, int yNode){
 	
-	if (mGrid.count(bLoc) > 0) {
-		for (auto it : mGrid[bLoc]) {
-			grid[it.first][it.second] = 1;
+	curVisited[xNode][yNode] = true;
+	for (auto curNode : graph[xNode][yNode]){
+		if (!bGrid[curNode.first][curNode.second]){
+			for (int i = 0; i <= n; i++){
+				fill(curVisited[i], curVisited[i] + n, 0);
+			}
+			ans++;
 		}
+		bGrid[curNode.first][curNode.second] = true;
+		
 	}
-	if (grid[bY - 1][bX] == 1) { cout << "ran1"; recurse(pair <int, int>(bY - 1, bX)); }
-	if (grid[bY + 1][bX] == 1) { cout << "ran2"; recurse(pair <int, int>(bY + 1, bX)); }
-	if (grid[bY][bX + 1] == 1){ 
-		cout << "ran3"; 
-		recurse(pair <int, int>(bY, bX + 1)); }
-	if (grid[bY][bX - 1] == 1) { cout << "ran4"; recurse(pair <int, int>(bY, bX - 1)); }
+	
+	if (!curVisited[xNode][yNode + 1] && bGrid[xNode][yNode + 1]){
+		dfs(xNode, yNode + 1);
+	} if (!curVisited[xNode][yNode - 1] && bGrid[xNode][yNode - 1]){
+		dfs(xNode, yNode - 1);
+	} if (!curVisited[xNode + 1][yNode] && bGrid[xNode + 1][yNode]){
+		dfs(xNode + 1, yNode);
+	} if (!curVisited[xNode - 1][yNode] && bGrid[xNode - 1][yNode]){
+		dfs(xNode - 1, yNode);
+	}
+	
 }
+
 int main()
 {
-	ifstream fin("lightson.in");
-	ofstream fout("lightson.out");
-	grid[1][1] = 1;
-	int n, m; fin >> n >> m;
-	int x, y, a, b;
-
-	for (int i = 0; i < m; i++) {
-		fin >> x >> y >> a >> b;
-		mGrid[make_pair(x, y)].push_back(make_pair(a,b));
+	freopen("lightson.in", "r", stdin);
+	freopen("lightson.out", "w", stdout);
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	cin >> n >> m;
+	graph.resize(n + 2);
+	for (int i = 0; i <= n; i++){
+		graph[i].resize(n + 2);
 	}
-	recurse(pair <int, int>(1, 1));
-	fout << ans;
+	for (int i = 0; i < m; i++){
+		int xf, yf, xs, ys;
+		cin >> xf >> yf >> xs >> ys;
+		graph[xf][yf].push_back({xs, ys});
+	}
+	bGrid[1][1] = true;
+	dfs(1, 1);
+	cout << ans;
+
+	
 
 }
 
