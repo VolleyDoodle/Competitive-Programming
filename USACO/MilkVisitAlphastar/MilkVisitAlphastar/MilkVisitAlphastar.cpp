@@ -1,41 +1,30 @@
-#include <unordered_map>
-#include <fstream>
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
-unordered_map <int, vector <int>> roads;
-string dataId;
-int ai, bi; char ci;
-int ans = 0;
-void solve(int cFarm, int pAns) {
-	if (pAns == 1 && cFarm == bi) { 
-		ans = 1; return; 
-	} //end statement for recursion
-	if (roads[cFarm].size() == 0) { return; }
-	for (auto element : roads[cFarm]) {
-		if (dataId[element - 1] == ci) { 
-			solve(element, 1); 
-		}
-		solve(element, pAns);
+
+vector <bool> visited;
+vector <char> farms;
+int ans = 0, curAi, curBi, curCi, curAns = 0;
+//this code is definitelly too slow
+void dfs(int curNode, bool tempAns, vector <bool>& visited){
+	
+	if (farms[curNode] == curCi){
+		tempAns = true;
 	}
+	visited[curNode] = true;
 
 }
-int main()
-{
-	ifstream fin("milkvisits.in");
-	ofstream fout("milkvisits.out");
+int main(){
 	int n, m;
-	fin >> n >> m;
-	fin >> dataId;
-
-	for (int i = 0; i < n - 1; i++) {
-		int X, Y; fin >> X >> Y;
-		roads[X].push_back(Y); roads[Y].push_back(X);
+	cin >> n >> m;
+	farms.resize(n + 1); visited.resize(n + 1);
+	for (int i = 1; i <= n; i++){
+		char t; cin >> t;
+		farms[i] = t;
 	}
-	for (int i = 0; i < m; i++) {
-		fin >> ai >> bi >> ci;
-		solve(ai, 0);
-		fout << ans; ans = 0;
-	}
+	for (int i = 0; i < n; i++){
+		cin >> curAi >> curBi >> curCi;
+		dfs(curAi, false, visited);
+		cout << curAns; curAns = 0;
+	}	
 
 }

@@ -33,8 +33,6 @@ void dfs(int xNode, int yNode){
 
 int main()
 {
-	freopen("lightson.in", "r", stdin);
-	freopen("lightson.out", "w", stdout);
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	cin >> n >> m;

@@ -45,17 +45,29 @@
     <Compile Include="PythonApplication1\PythonApplication1\PythonApplication1.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="cownditioning\" />
     <Folder Include="cownditioning\cownditioning" />
+    <Folder Include="gridpaths\" />
     <Folder Include="gridpaths\gridpaths" />
+    <Folder Include="guess_the_animal\" />
     <Folder Include="guess_the_animal\guess_the_animal" />
+    <Folder Include="measuring_traffic\" />
     <Folder Include="measuring_traffic\measuring_traffic" />
+    <Folder Include="milkmeasurement\" />
     <Folder Include="milkmeasurement\Debug" />
+    <Folder Include="photoshoot_2\" />
     <Folder Include="photoshoot_2\photoshoot_2" />
+    <Folder Include="pointer.c\" />
     <Folder Include="pointer.c\pointer.c" />
+    <Folder Include="ps2new\" />
     <Folder Include="ps2new\ps2new" />
+    <Folder Include="PythonApplication1\" />
     <Folder Include="PythonApplication1\PythonApplication1" />
+    <Folder Include="sleeping_in_class\" />
     <Folder Include="sleeping_in_class\sleeping_in_class" />
+    <Folder Include="test\" />
     <Folder Include="test\test" />
+    <Folder Include="trans_dice\" />
     <Folder Include="trans_dice\trans_dice" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

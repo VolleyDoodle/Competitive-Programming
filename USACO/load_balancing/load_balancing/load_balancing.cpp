@@ -1,49 +1,47 @@
-
-#include <iostream>
-#include <algorithm>  
-#include <fstream>
-#include <vector>
-#include <unordered_set>
-#include <climits>
+#include <bits/stdc++.h>
 using namespace std;
-int main()
-{
-    ifstream fin("balancing.in");
-    ofstream fout("balancing.out");
-    int n, B, ans = INT_MAX;
-    int upperLeft = 0, lowerLeft = 0, upperRight = 0, lowerRight = 0;
-    fin >> n >> B;
-    int data[101][2], xc[101], yc[101];
-    unordered_set <int> sxc, syc;
-    sxc.insert(0); syc.insert(0);
-    for (int i = 0; i < n; i++) { 
-        fin >> data[i][0] >> data[i][1];
-        xc[i] = data[i][0]; yc[i] = data[i][1];
+
+//Horizontal line = Hline, vertical line = Vline
+int main(){
+    freopen("balancing.in", "r", stdin);
+    freopen("balancing.out", "w", stdout);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n, ans = INT_MAX, tempAns; 
+    cin >> n;
+    vector <pair <int, int>> cords(n), aboveLine, belowLine;
+    for (int i = 0; i < n; i++){
+        cin >> cords[i].first >> cords[i].second;
     }
-    //sort(data.begin(), data.end());
-    //sort(cords, cords + n, [](int a[2], int b[2]) { return a[0] > b[0]; });
-    sort(xc, xc + n);
-    sort(yc, yc + n);
-    for (int i = 0; i < n; i++) {
-        sxc.insert(xc[i] - 1);  syc.insert(yc[i] - 1);
-        //fout << xc[i] << " " << yc[i];
-        //fout << endl;
-    }
-    for (int x : sxc) {
-        for (int y : syc) {
-            //fout << x << " " << y << endl;
-            for (int i = 0; i < n; i++) {
-                if (data[i][0] > x && data[i][1] > y) { upperRight++; }
-                else if (data[i][0] > x && data[i][1] < y) { lowerLeft++; }
-                else if (data[i][0] < x && data[i][1] > y) { lowerRight++; }
-                else { upperLeft++; }
+    sort(cords.begin(), cords.end());
+    //basically just do it lol
+    for (int i = 0; i < n; i++){
+        int Hline = cords[i].second + 1;
+        for (int x = 0; x < n; x++){
+            if (cords[x].second > Hline){
+                aboveLine.push_back(cords[x]);
+            } else{
+                belowLine.push_back(cords[x]);
             }
-            //if (x == 6 && y == 4) {fout << upperRight << lowerRight << upperLeft << lowerLeft << endl;}
-            //return max amt cows
-            ans = min(ans, max(max(upperRight, lowerRight), max(upperLeft, lowerLeft)));
-            upperRight = 0; upperLeft = 0; lowerRight = 0; lowerLeft = 0;
+            //cords[x].second > Hline ? aboveLine.push_back(cords[x]) : belowLine.push_back(cords[x]);
         }
+        int aboveLen = aboveLine.size(), belowLen = belowLine.size();
+        int upperIndex = 0, lowerIndex = 0;
+        for (int x = 0; x < n - 1; x++){
+            int Vline = cords[x].first + 1;
+            while (aboveLine[upperIndex].first < Vline && upperIndex < n){
+                upperIndex++;
+            } while (belowLine[lowerIndex].first < Vline && lowerIndex < n){
+                lowerIndex++;
+            }
+            tempAns = max(max(upperIndex, aboveLen - upperIndex), max(lowerIndex, belowLen  - lowerIndex));
+            ans = min(ans, tempAns);
+        }
+        aboveLine.clear(); belowLine.clear();                                                                                                                                                                                
+        
+
     }
-    fout << ans;
+    cout << ans;
+
 }
 
