@@ -6,13 +6,18 @@ int main() {
   int n;
   cin >> n;
   vector <int> nums(n);
+  
   for (int i = 0; i < n; i++){
     cin >> nums[i];
   }
   sort(nums.begin(), nums.end());
-  int res = 1;
-  for (int num: nums){
-    
+  long long smallestSum = 0;
+  for (int x : nums){
+    if (smallestSum + 1 < x){
+      break;
+    }
+    smallestSum+=x;
   }
+  cout << smallestSum + 1;
   
 }
