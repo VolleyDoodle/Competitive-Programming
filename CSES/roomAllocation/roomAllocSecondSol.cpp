@@ -17,26 +17,29 @@ int main(){
     }
     sort(cust.begin(), cust.end());
     
-    int left = 0, right = 0;
+    int  right = 0;
+    priority_queue <pair <int, int>, vector <pair <int, int>>, greater <>> endTimes;
     queue <int> roomsEmpty;
     int maxGap = 0;
+    //definitly could use for loop
+    //just used two-pointer code slightly modified and kept while loop
     while (right < n){
-        
-       
-        while (cust[right][0] > cust[left][1]){
-            roomsEmpty.push(roomOcc[cust[left][2]]);
-            left++;
+        endTimes.push({cust[right][1], cust[right][2]});
+        //handle right++ first
+        while (cust[right][0] > endTimes.top().first){
+            roomsEmpty.push(roomOcc[endTimes.top().second]);
+            endTimes.pop();
         }
-        maxGap = max(maxGap, right - left + 1);
+        maxGap = max(maxGap, (int)endTimes.size());
         if (roomsEmpty.empty()){
             roomOcc[cust[right][2]] = maxGap;
         } else{
-            int newRoom = roomsEmpty.front();
+            roomOcc[cust[right][2]] = roomsEmpty.front();
             roomsEmpty.pop();
-            roomOcc[cust[right][2]] = newRoom;
         }
+        
         right++;
-
+       
     }
     cout << maxGap << "\n";
     for (int& i : roomOcc){
