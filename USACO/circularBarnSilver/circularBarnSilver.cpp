@@ -1,46 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
-int n, ans = 0;
-vector <int> rooms;
-void solve(int needCow){
-    //needCow is room that has no cows
-    int curCow = needCow, doors = 0;
-    while (true){
-        
-        if (rooms[curCow]){
-            rooms[curCow]--;
-            rooms[needCow]++;
-            ans += doors * doors;
-            break;
-        }
-        curCow--;
-        if (!curCow){curCow = n;}
-        
-        doors++;
+int n;
+vector <int> rooms, dScore;
+//stores #of cows and current d-score (only if =1)
+void giveAndGo(int i){
+    int d = 0;
+    while (rooms[(i + d)%n] == 0){
+        d++;
     }
+    rooms[(i + d)%n]--;
+    rooms[i]++;
+    dScore[i] = d + dScore[(i + d)%n];
+    //return (d * d) - (dScore[(i + d)%n] * dScore[(i + d)%n]);
 }
 int main(){
     freopen("cbarn.in", "r", stdin);
     freopen("cbarn.out", "w", stdout);
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n;
-    rooms.resize(n + 1);
-    for (int i = 1; i <= n; i++){
+
+    cin >> n;   
+    rooms.resize(n);
+    dScore.resize(n);
+    fill(dScore.begin(), dScore.end(), 0);
+    for (int i = 0; i < n; i++){
         cin >> rooms[i];
-    }   
-    int curCow = n; 
-    while (true){
-        if (!rooms[curCow]){
-            solve(curCow);
-        }
-        bool allEqual = true;
-        for (int i = 1; i <= n; i++){
-            if (!rooms[i]){allEqual = false;}
-        }
-        if (allEqual){break;}
-        curCow--;
-        if (!curCow){ curCow = n;}
+    } 
+    int ans = 0;
+    reverse(rooms.begin(), rooms.end());
+    auto it = find(rooms.begin(), rooms.end(), 0);
+    int index = it - rooms.begin();
+    while (it != rooms.end()){
+        giveAndGo(it - rooms.begin());
+        //if (rooms[index%n] == 0) ans+=giveAndGo(index%n);
+        //index++;
+        it = find(rooms.begin(), rooms.end(), 0);
+
     }
+    for (int i = 0; i < n; i++){
+        ans+= (dScore[i] * dScore[i]);
+    }
+    
     cout << ans;
 }

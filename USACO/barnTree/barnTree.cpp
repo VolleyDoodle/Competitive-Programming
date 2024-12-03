@@ -1,34 +1,73 @@
 #include <bits/stdc++.h>
 using namespace std;
-//tree cuz n - 1 edges
-vector <vector <int>> tree;
-vector <int> barnVal;
+struct orders{
+    int barnFrom, barnTo;
+    long long hayAmt;
+};
+vector <long long> subtreeSum;
+vector <vector <int>> barns;
 vector <bool> visited;
-int sum = 0, avg;
-void dfs(int node){
+vector <orders> ans;
+int avg;
+void dfsSubTreeSum(int node){
+    subtreeSum[node]-=avg;
     visited[node] = true;
-    for (int curNode: tree[node]){
-        if (barnVal[curNode])
-    }
-}
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int n; cin >> n;
-    tree.resize(n + 1); barnVal.resize(n + 1); visited.resize(n + 1);
-    for (int i = 1; i <= n; i++){
-        cin >> barnVal[i];
-        sum+=barnVal[i];
-    }
-    avg = sum/n;
-    for (int i = 0; i < n - 1; i++){
-        int t, tt; cin >> t >> tt;
-        tree[t].push_back(tt); tree[tt].push_back(t);
-    }
-    for (int i = 1; i <= n; i++){
-        if (barnVal[i] > avg){
-            dfs(i);
+    for (int nextNode : barns[node]){
+        if (!visited[nextNode]){
+    
+            dfsSubTreeSum(nextNode);
+            subtreeSum[node]+=subtreeSum[nextNode];
         }
     }
 
 }
+void dfsAns(int node){
+    //child to parent
+    visited[node] = true;
+    for (int nextNode : barns[node]){
+        if (!visited[nextNode]){
+            if (subtreeSum[nextNode] >= 0){
+                dfsAns(nextNode);
+            }
+            if (subtreeSum[nextNode] > 0){
+                ans.push_back({nextNode, node, subtreeSum[nextNode]});
+            }
+        }
+        
+    }
+    //parent to node
+    for (int nextNode : barns[node]){
+        if (!visited[nextNode] && subtreeSum[nextNode] < 0){
+            ans.push_back({node, nextNode, -subtreeSum[nextNode]});
+            dfsAns(nextNode);
+        }
+    }
+}
+int main(){
+    //freopen("input.in", "r", stdin);
+    //freopen("output.out", "w", stdout);
+    int n;
+    long long sum = 0;
+    cin >> n;
+    subtreeSum.resize(n + 1); barns.resize(n + 1);
+    visited.resize(n + 1);
+    fill(visited.begin(), visited.end(), 0);
+    for (int i = 1; i <= n; i++){
+        cin >> subtreeSum[i];
+        sum+=subtreeSum[i];
+    }
+    avg = sum/n;
+    for (int i = 0; i < n - 1; i++){
+        int t, tt;
+        cin >> t >> tt;
+        barns[t].push_back(tt);
+        barns[tt].push_back(t);
+    }
+    dfsSubTreeSum(1);
+    fill(visited.begin(), visited.end(), 0);
+    dfsAns(1);
+    cout << ans.size() << '\n';
+    for (orders curOrder : ans){
+        cout << curOrder.barnFrom << " " << curOrder.barnTo << " " << curOrder.hayAmt << '\n';
+    }
+}   
