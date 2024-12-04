@@ -12,6 +12,7 @@ int main(){
     set <int> zeros, ones;
     multiset <int> lens;
     //could have used vector <set <int>> instead of using all these if/else statements
+    //definitly could use 2d vector of size 2 with sets instead of repetitve code and if else
     zeros.insert(-1); 
     ones.insert(-1); 
     for (int i = 0; i < bit.size(); i++){
