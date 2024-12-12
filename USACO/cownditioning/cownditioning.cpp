@@ -1,9 +1,7 @@
 
-#include <iostream>
-#include <fstream>
-#include <stdlib.h>
+#include <bits/stdc++.h>
 using namespace std;
-#include <vector>
+
 int main()
 {
 	int n, temp;
