@@ -7,7 +7,7 @@ int main()
 {
     ifstream fin("angry.in");
     ofstream fout("angry.out");
-    cout << "sdl";
+    //cout << "sdl";
     int n, ans = 0, rExp, temp_ans, exploded;
     int pExploded;
     bool done;
