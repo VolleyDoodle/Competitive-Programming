@@ -5,30 +5,32 @@ void solve(){
     cin >> n >> m;
     map <int, vector <int>> graph;
     int start = 0;
+    long long biggestVis = 0;
     for (int i = 0; i < n; i++){
         int l;
         cin >> l;
-        vector <int> a(l);
+        vector <long long> a(l);
         for (int x = 0; x < l; x++){
             cin >> a[x];
         }
         a.push_back(-1); a.push_back(l + 4);
         sort(a.begin(), a.end());
         int cnt = 0;
-        vector <int> mex(2);
+        //vector <int> mex(2);
         for (int x = 0; x < l + 5; x++){
             if (a[x] + 1 != a[x + 1] && a[x] != a[x + 1]){
-                mex[cnt] = a[x] + 1;
+                //mex[cnt] = a[x] + 1;
+                biggestVis = max(biggestVis, a[x] + 1);
                 cnt++;
                 a.insert(a.begin() + x + 1, a[x] + 1);
             }
             if (cnt == 2 || x == a.size() - 1) break;
         }
-        graph[mex[0]].push_back(mex[1]);
+        /*graph[mex[0]].push_back(mex[1]);
         graph[mex[1]].push_back(mex[0]);
-        start = mex[0];
+        start = mex[0];*/
     }
-    map <int, bool> visited;
+    /*map <int, bool> visited;
     long long biggestVis = start;
     for (auto& e : graph){
         int i = e.first;
@@ -48,7 +50,7 @@ void solve(){
                 }
             }
         }
-    }
+    }*/
     
     long long ans = (min(biggestVis, m) + 1) * (biggestVis);
     if (m > biggestVis){

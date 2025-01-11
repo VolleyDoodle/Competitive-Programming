@@ -38,6 +38,7 @@ int main(){
             swap(curPos[x], curPos[x + 1]);
         }
         //now just going to spot
+        //could combine the two loops above but i aint
         for (int x = indexCur; x < i; x++){
             cnt++;
             ans.push_back({curPos[x + 1], curPos[x]});

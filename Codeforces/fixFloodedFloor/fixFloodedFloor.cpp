@@ -1,33 +1,60 @@
 #include <bits/stdc++.h>
 using namespace std;
+int n;
+bool inGrid(int i, int j){
+    if (i < 0 || i > 1 || j < 0 || j >= n) return false;
+    return true;
+}
 void solve(){
-    int n;
+
     cin >> n;
-    //literally just pigeonhole principle
     vector <vector <int>> grid(2, vector <int>(n));
-    int black = 0, white = 0;
     for (int i = 0; i < 2; i++){
         for (int j = 0; j < n; j++){
-            cin >> grid[i][j];
-            if (grid[i][j] == '.'){
-                if ((i + j)%2 == 1){
-                    white++;
-                } else{
-                    black++;
-                }
-            }
-            
+            char c;
+            cin >> c;
+            grid[i][j] = (c == '.' ? 1 : 0);
         }
     }
-    if (black != white){
-        cout << "None";
-        return;
+    grid[0].push_back(0);
+    grid[1].push_back(0);
+    //1 is equal to empty,
+    //0 is equal to full
+    bool pos = true, multi = false;
+    for (int i = 0; i < n; i++){
+        //go by column by column
+        //case 1
+        if (grid[0][i] + grid[1][i] == 1){
+            if (grid[0][i] == 1 && grid[0][i + 1] == 1){
+                grid[0][i] = 0;
+                grid[0][i + 1] = 0;
+            } else if (grid[1][i] == 1 && grid[1][i + 1] == 1){
+                grid[1][i] = 0;
+                grid[1][i + 1] = 0;
+            } else{
+                pos = false;
+                break;
+            }
+        } else if (grid[0][i] + grid[1][i] == 2){
+            //now there is a empty column
+            //can be multiple if 4x4 square
+            if (grid[0][i] + grid[1][i] + grid[0][i + 1] + grid[1][i + 1] == 4){
+                multi = true;
+                grid[0][i + 1] = 1;
+                grid[1][i + 1] = 1;
+            }
+            grid[0][i] = 1;
+            grid[1][i] = 1;
+        }
     }
-    //now just differenitate
-    //from multiple or unique
-    //conjecture : unique only if the segment of dots(.) is odd
-    //
-    
+    if (!pos){
+        cout << "None";
+    } else if (multi){
+        cout << "Multiple";
+    } else{
+        cout << "Unique";
+    }
+
 }
 int main(){
     freopen("txt.in", "r", stdin);
