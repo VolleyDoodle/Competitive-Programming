@@ -81,11 +81,13 @@ int main(){
     }
     int q;
     cin >> q;
+    string ans = "";
     for (int i = 0; i < q; i++){
         string tt;
         cin >> tt;
-        cout << (good[tt] ? "Y" : "N");
+        ans+= (good[tt] ? "Y" : "N");
     }
+    cout << ans;
 
 
 }

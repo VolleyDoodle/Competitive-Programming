@@ -7,29 +7,34 @@ int main(){
     //problem is symmetrical for sure
     //so basically just trying to see some sort of pattern
     //does not work will fix later
+    //holy fucking shit this problem is fucking cancer i fucking hate this
+
     int t;
     cin >> t;
     while (t--){
         int n, k, og;
         cin >> n >> k;
-        og = n;
+        long long tN = n, curOdd = 1;
         long long ans = 0;
-        //the result of n will be the length of the shortest array
-       long long leastNum = LLONG_MAX;
-        while (n/2 >= k){
-            //basically means while we can divide by two
-            if (n%2){
-                //odd
-                n/=2;
-                leastNum = n;
+        bool notSet = true;
+        while (tN >= k){
+            if (tN%2 == 1){
+                if (notSet){
+                    //curOdd*= tN/2 + 1
+                    curOdd = (tN/2 + 1 + (tN/2 + 1) + (curOdd - 1)*tN) * (curOdd)/2;
+                    notSet = false;
+                }
+                else{
+                    curOdd*=2;
+                }
+                ans += curOdd;
+                tN/=2;
             } else{
-                n/=2;
+                curOdd *=2;
+                tN/=2;
             }
         }
-        if (leastNum%2) leastNum = leastNum/2 + 1;
-        else leastNum++;
-        long long num = og/(leastNum);
-        cout << (leastNum + num * leastNum) * num/2;
-        cout << "\n";
+        cout << ans << "\n";
     }
+        
 }
