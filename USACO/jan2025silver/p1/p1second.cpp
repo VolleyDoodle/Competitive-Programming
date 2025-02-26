@@ -10,8 +10,8 @@ ll check(vector <ll>& a, vector <ll>& b){
     return sum;
 }
 int main(){
-    //freopen("txt.in", "r", stdin);
-    //freopen("txt.out", "w", stdout);
+    freopen("txt.in", "r", stdin);
+    freopen("txt.out", "w", stdout);
     ll n, ans = 0;
     cin >> n;
     vector <ll> a(n), b(n), ca(n);
@@ -40,12 +40,12 @@ int main(){
     }
     for (int i = 0 ; i < n; i++){
         if (a[i] == b[i]){
-            ans += (n - i - 1) * (n - i)/2;
+            ans += (ll)(n - i - 1) * (ll)(n - i)/2LL;
         }
     }
     for (int i = n - 1; i >= 0; i--){
         if (a[i] == b[i]){
-            ans += (i) * (i + 1)/2;
+            ans += (ll)(i) * (ll)(i + 1)/2LL;
         }
     }
     cout << ans;
