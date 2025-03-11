@@ -12,13 +12,16 @@ void solve(){
     int n;
     cin >> n;
     vector <int> a(n), na(n);
-    vector <pair <int, int>> sortA(n);
+    vector <pair <int, int>> sortA(n), ord(n);
     for (int i = 0; i < n; i++){
         cin >> na[i];
+        ord[i].f = na[i];
+        ord[i].s = i;
         
     }
     //sort(sortA.begin(), sortA.end());
-    vector <int> prefix1(n, 0), suffix1(n, 0);
+    sort(ord.begin(), ord.end());
+    vector <int> prefix1(n, 0), suffix1(n + 1, 0);
     prefix1[0] = na[0];
     for (int i = 1; i < n; i++){
         prefix1[i] = max(prefix1[i - 1], na[i]);
@@ -28,10 +31,17 @@ void solve(){
         suffix1[i] = max(suffix1[i + 1], na[i]);
     }
     int newIndex = 0;
-    for (int i = 1; i < n - 1; i++){
+    /*for (int i = 1; i < n - 1; i++){
         if (prefix1[i - 1] < suffix1[i + 1] && na[i] > prefix1[i - 1]){
             //can just delete all of prefix1
             newIndex = i;
+        }
+    }*/
+    for (int i = n - 1; i >= 0; i--){
+        if (ord[i].s == 0) continue;
+        if (prefix1[ord[i].s - 1] < suffix1[ord[i].s + 1] && ord[i].f >= suffix1[ord[i].s + 1]){
+            newIndex = ord[i].s;
+            break;
         }
     }
     for (int i = newIndex; i < n; i++){
