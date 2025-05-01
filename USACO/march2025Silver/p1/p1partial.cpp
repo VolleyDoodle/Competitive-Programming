@@ -42,7 +42,7 @@ void brute(int sum, int st, int m, vector<int>& sub) {
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    setIO("txt");
+    //setIO("txt");
     
     int t;
     cin >> t;
@@ -56,18 +56,50 @@ int main(){
         cout << "3" << endl;
         cout << "3 23 7" << endl;
         cout << "-1" << endl;
-    } else{
-        vector<int> sub;
-        sub.push_back(0);
-        for (int i = 0; i < t; i++){
-            k = input[i].s;
-            good = false;
-            
-            brute(0, 1, input[i].f, sub);
-            if (!good){
-                cout << -1 << "\n";
-            }
-        }
+    }  else{
         
+        for (int i = 0; i < t; i++){
+            if (input[i].f <= 8 && input[i].s <= 8){
+                vector<int> sub;
+                sub.push_back(0);
+                
+                k = input[i].s;
+                good = false;
+                
+                brute(0, 1, input[i].f, sub);
+                if (!good){
+                    cout << -1 << "\n";
+                }
+            } else{
+                bitset <32> b(input[i].s);
+                int curSum = 0;
+                vector <int> ans;
+                int m = input[i].f;
+                /*curSum += (1 << input[i].s) - 1;
+                ans.push_back((1 << input[i].s) - 1);*/
+                for (int j = 31; j >= 0; j--){
+                    if (b[j] == 1){
+                        curSum += (1 << (1 << j)) - 1;
+                        ans.push_back((1 << (1 << j)) - 1);
+                    }
+                }
+                if ((m - curSum) % 2 == 1){
+                    ans.push_back(2);
+                    ans.push_back(1);
+                    curSum += 3;
+                }   
+                if ((m - curSum) % 2 == 0){
+                    ans.push_back((m - curSum)/2);
+                    ans.push_back((m - curSum)/2);
+                }
+                cout << ans.size() << "\n";
+                for (int num : ans){
+                    cout << num << " ";
+                }
+                cout << "\n";
+            }
+            
+
+        }
     }
 }

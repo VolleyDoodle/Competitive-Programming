@@ -9,8 +9,8 @@ int log2(int num){
     return cnt - 1;
 }
 int main(){
-    //freopen("txt.in", "r", stdin);
-    //freopen("txt.out", "w", stdout);
+    freopen("txt.in", "r", stdin);
+    freopen("txt.out", "w", stdout);
     int n, q;
     cin >> n >> q;
     vector <int> a(n);
